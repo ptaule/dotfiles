@@ -1,0 +1,121 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'godlygeek/tabular'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'Raimondi/delimitMate'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'bronson/vim-trailing-whitespace'
+"Plugin 'vim-scripts/OmniCppComplete'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate " :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
+
+set omnifunc=syntaxcomplete#Complete
+
+"History/Undo settings
+set history=1000
+set undofile
+set undodir=~/.vim/undo
+set undolevels=1000         " How many undos
+set undoreload=10000		" Number of lines to save for undo
+"set backupdir=~/.vim/backup/
+"set directory=~/.vim/backup/
+
+set lazyredraw
+set hidden
+
+set wildmenu
+set wildignore+=*.aux,*.out,*.toc,*.pdf
+set wildignore+=*.dSYM/,*.png,*.jpeg,*.ind
+set wildignore+=*.idx,*.log,*.idx,*.ilg,*.fls
+set wildignorecase
+
+set number
+set relativenumber
+set scrolloff=3
+set ignorecase
+set smartcase
+set hlsearch
+
+let g:tex_flavor = "latex"
+syntax on
+colorscheme default 
+autocmd filetype tex colorscheme default
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set backspace=indent,eol,start
+
+set clipboard=unnamed
+set shortmess=a
+set cmdheight=2
+
+" skriveleifer
+ab heigth height
+ab lenght length
+ab teh the "auto change 'teh' to 'the'
+ab fro for "auto change 'fro' to 'for'
+
+let mapleader = ","
+let g:mapleader = ","
+
+"Escape
+inoremap jk <Esc>
+nnoremap j gj
+nnoremap k gk
+autocmd filetype tex inoremap 77 \
+autocmd filetype tex inoremap 88 {
+autocmd filetype tex inoremap 99 }
+nnoremap <CR> o<Esc>
+autocmd filetype cpp inoremap {<CR> {<CR>}<Esc>O
+autocmd filetype cpp let @d='ywostd::cout << "jkpa= jkA << jkpjkA<< std::endl;jkk0'
+
+"Vertical split
+nnoremap <leader>w <C-w>v<C-w>l
+"Horizontal split
+"nnoremap <leader>h <C-w>s<C-w>l
+nnoremap <leader>q <C-w>q
+nnoremap <leader>h <C-w>h
+nnoremap <leader>j <C-w>j
+nnoremap <leader>k <C-w>k
+nnoremap <leader>l <C-w>l
+nnoremap <leader>p $p
+
+nnoremap H 0
+nnoremap L $
+
+"source $MYVIMRC reloads the saved $MYVIMRC
+nnoremap <Leader>s :source $MYVIMRC<CR>
+"opens $MYVIMRC for editing, or use :tabedit $MYVIMRC
+nnoremap <Leader>v :e $MYVIMRC<CR>
+
+vnoremap <leader>t :Tabularize /
+
+noremap <silent> <Space> :silent noh<Bar>echo<CR>
+
+" Change working directory to this
+cmap ctwd :cd %:p:h<CR>
