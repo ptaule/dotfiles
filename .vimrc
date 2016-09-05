@@ -14,7 +14,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'godlygeek/tabular'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'Raimondi/delimitMate'
-Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'ntpeters/vim-better-whitespace'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -41,10 +41,12 @@ filetype plugin indent on    " required
 "let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 "nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
+" Ultisnips settings
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
+
 "History/Undo settings
 set history=1000
 set undofile
@@ -83,11 +85,13 @@ set clipboard=unnamed
 set shortmess=a
 set cmdheight=2
 
-" skriveleifer
+" Typos
 ab heigth height
 ab lenght length
-ab teh the "auto change 'teh' to 'the'
-ab fro for "auto change 'fro' to 'for'
+ab widht width
+ab teh the
+ab fro for
+autocmd filetype cpp ab enld endl
 
 let mapleader = ","
 let g:mapleader = ","
@@ -97,9 +101,6 @@ inoremap jk <Esc>
 nnoremap j gj
 nnoremap k gk
 noremap <silent> <Space> :silent noh<Bar>echo<CR>
-autocmd filetype tex inoremap 77 \
-autocmd filetype tex inoremap 88 {
-autocmd filetype tex inoremap 99 }
 nnoremap <CR> o<Esc>
 autocmd filetype cpp inoremap {<CR> {<CR>}<Esc>O
 autocmd filetype cpp let @d='ywostd::cout << "jkpa= jkA << jkpjkA<< std::endl;jkk0'
@@ -120,6 +121,8 @@ nnoremap <Leader>s :source $MYVIMRC<CR>
 nnoremap <Leader>v :e $MYVIMRC<CR>
 
 vnoremap <leader>t :Tabularize /
+" Search for visual selected text
+vnoremap // y/<C-R>"<CR>
 
 " Change working directory to this
 cmap ctwd :cd %:p:h<CR>
