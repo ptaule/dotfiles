@@ -1,5 +1,5 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible " be iMproved, required
+filetype off     " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -14,6 +14,9 @@ Plugin 'SirVer/ultisnips'
 Plugin 'godlygeek/tabular'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'Raimondi/delimitMate'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
 Plugin 'ntpeters/vim-better-whitespace'
 
 " All of your Plugins must be added before the following line
@@ -42,6 +45,7 @@ filetype plugin indent on    " required
 "nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 " Ultisnips settings
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -51,8 +55,8 @@ let g:UltiSnipsEditSplit="vertical"
 set history=1000
 set undofile
 set undodir=~/.vim/undo
-set undolevels=1000         " How many undos
-set undoreload=10000            " Number of lines to save for undo
+set undolevels=1000 " How many undos
+set undoreload=1000 " Number of lines to save for undo
 set backupdir=~/.vim/backup/
 set directory=~/.vim/backup/
 
@@ -75,13 +79,13 @@ set hlsearch
 let g:tex_flavor = "latex"
 syntax on
 colorscheme darkblue
-autocmd filetype tex colorscheme default
+autocmd filetype tex colorscheme industry
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set backspace=indent,eol,start
 
-set clipboard=unnamed
+" set clipboard=unnamed
 set shortmess=a
 set cmdheight=2
 
