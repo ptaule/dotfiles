@@ -17,6 +17,7 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-commentary'
 Plugin 'ntpeters/vim-better-whitespace'
 
 " All of your Plugins must be added before the following line
@@ -51,6 +52,11 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
+let g:tex_flavor = "latex"
+syntax on
+colorscheme default
+autocmd filetype tex colorscheme industry
+
 "History/Undo settings
 set history=1000
 set undofile
@@ -75,15 +81,15 @@ set scrolloff=3
 set ignorecase
 set smartcase
 set hlsearch
+set incsearch
 
-let g:tex_flavor = "latex"
-syntax on
-colorscheme darkblue
-autocmd filetype tex colorscheme industry
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set smarttab
 set backspace=indent,eol,start
+
+set nrformats-=octal
 
 " set clipboard=unnamed
 set shortmess=a
@@ -96,6 +102,7 @@ ab widht width
 ab teh the
 ab fro for
 autocmd filetype cpp ab enld endl
+autocmd filetype tex ab farc frac
 
 let mapleader = ","
 let g:mapleader = ","
@@ -127,6 +134,8 @@ nnoremap <Leader>v :e $MYVIMRC<CR>
 vnoremap <leader>t :Tabularize /
 " Search for visual selected text
 vnoremap // y/<C-R>"<CR>
+
+nnoremap Q !!sh<CR>
 
 " Change working directory to this
 cmap ctwd :cd %:p:h<CR>
