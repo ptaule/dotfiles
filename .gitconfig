@@ -1,0 +1,7 @@
+[user]
+	email = pettertaule@live.no
+	name = Petter Taule
+[alias]
+    s = status
+    co = checkout
+    cp = cherry-pick
