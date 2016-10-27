@@ -9,7 +9,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-" Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
 Plugin 'godlygeek/tabular'
 Plugin 'sheerun/vim-polyglot'
@@ -35,15 +35,15 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-"let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-"let g:ycm_extra_conf_globlist = ['~/Dropbox/C++/*','~/Dropbox/NTNU/*']
-"let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_autoclose_preview_window_after_insertion = 1
-"let g:ycm_filetype_whitelist = {'cpp' : 1,'c' : 1, 'python' : 1, 'tex' : 1}
-"
-"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-"nnoremap <leader>jd :YcmCompleter GoTo<CR>
+" let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+" let g:ycm_extra_conf_globlist = ['~/Dropbox/C++/*','~/Dropbox/NTNU/*']
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_filetype_whitelist = {'cpp' : 1,'c' : 1, 'python' : 1, 'tex' : 1}
+
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 " Ultisnips settings
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
@@ -82,6 +82,8 @@ set ignorecase
 set smartcase
 set hlsearch
 set incsearch
+set gdefault
+set path+=**
 
 set tabstop=4
 set shiftwidth=4
@@ -115,6 +117,8 @@ noremap <silent> <Space> :silent noh<Bar>echo<CR>
 nnoremap <CR> o<Esc>
 autocmd filetype cpp inoremap {<CR> {<CR>}<Esc>O
 autocmd filetype cpp let @d='ywostd::cout << "jkpa= jkA << jkpjkA<< std::endl;jkk0'
+autocmd filetype py let @d='ywoprint ("jkpa= "jkA,jkpjkA)jkk0'
+autocmd filetype tex let @v='i\vek{jkwea}jk'
 
 "Vertical split
 nnoremap <leader>w <C-w>v<C-w>l
@@ -126,6 +130,17 @@ nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
 
+" Copy to clipboard
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+vnoremap  <leader>y  "+y
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
 "source $MYVIMRC reloads the saved $MYVIMRC
 nnoremap <Leader>s :source $MYVIMRC<CR>
 "opens $MYVIMRC for editing, or use :tabedit $MYVIMRC
@@ -135,6 +150,7 @@ vnoremap <leader>t :Tabularize /
 " Search for visual selected text
 vnoremap // y/<C-R>"<CR>
 
+" Execute command on this line in shell
 nnoremap Q !!sh<CR>
 
 " Change working directory to this
