@@ -20,8 +20,11 @@ snippet def "#define ..."
 endsnippet
 
 snippet #ifndef "#ifndef ... #define ... #endif"
-#ifndef ${1/([A-Za-z0-9_]+).*/$1/}
-#define ${1:SYMBOL} ${2:value}
+#ifndef ${1:`!p res = fn`}
+#define $1
+
+$0
+
 #endif /* ifndef $1 */
 endsnippet
 
@@ -55,6 +58,18 @@ endsnippet
 
 snippet fori "for int loop (fori)"
 for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet while "while"
+while (${1:true}) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet stm "while"
+${1:if} (${2}) {
 	${VISUAL}$0
 }
 endsnippet
