@@ -4,37 +4,57 @@ filetype off     " required
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 Plug 'SirVer/ultisnips'
-"Plug 'Valloric/YouCompleteMe'
+Plug 'neomake/neomake'
+Plug 'vim-airline/vim-airline'
 Plug 'godlygeek/tabular'
 Plug 'sheerun/vim-polyglot'
 Plug 'Raimondi/delimitMate'
+Plug 'lervag/vimtex'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
 Plug 'ntpeters/vim-better-whitespace'
 
 " Initialize plugin system
 call plug#end()
 
-" let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-" let g:ycm_extra_conf_globlist = ['~/Dropbox/C++/*','~/Dropbox/NTNU/*']
-" let g:ycm_autoclose_preview_window_after_completion = 1
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-" let g:ycm_filetype_whitelist = {'cpp' : 1,'c' : 1, 'python' : 1, 'tex' : 1}
+filetype plugin indent on
 
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" nnoremap <leader>jd :YcmCompleter GoTo<CR>
+" Neomake settings
+autocmd! BufWritePost *.cpp,*.hpp,*.h Neomake
+let g:neomake_cpp_enabled_makers = ['gcc']
+let g:neomake_cpp_gcc_maker = {
+            \ 'exe': 'g++',
+            \ 'args': ['-Wall', '-Wextra', '-Wpedantic', '-Wno-sign-conversion', '-std=c++11'],
+            \ }
+
+" vim-airline settings
+set laststatus=2
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 
 " Ultisnips settings
+let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 
-let g:tex_flavor = "latex"
 syntax on
 colorscheme default
 autocmd filetype tex colorscheme industry
@@ -77,7 +97,7 @@ set nrformats-=octal
 
 " set clipboard=unnamed
 set shortmess=a
-set cmdheight=2
+set cmdheight=1
 
 " Typos
 ab heigth height
@@ -91,6 +111,8 @@ autocmd filetype tex ab farc frac
 let mapleader = ","
 let g:mapleader = ","
 
+let g:tex_flavor = "latex"
+
 "Escape
 inoremap jk <Esc>
 nnoremap j gj
@@ -98,9 +120,12 @@ nnoremap k gk
 noremap <silent> <Space> :silent noh<Bar>echo<CR>
 nnoremap <CR> o<Esc>
 autocmd filetype cpp inoremap {<CR> {<CR>}<Esc>O
-autocmd filetype cpp let @d='ywostd::cout << "jkpa= jkA << jkpjkA<< std::endl;jkk0'
+autocmd filetype cpp let @d='ywostd::cout << "jkpa= jkA << jkpjkA<< std::endl;jkk^'
+autocmd filetype cpp let @p='ywoprintf("jkpa = %i\n", jkpa);jkk^'
+autocmd filetype cpp nnoremap <leader>m :wa<CR> :!clear;make run<CR>
 autocmd filetype py let @d='ywoprint ("jkpa= "jkA,jkpjkA)jkk0'
 autocmd filetype tex let @v='i\vek{jkwea}jk'
+
 
 "Vertical split
 nnoremap <leader>w <C-w>v<C-w>l
