@@ -4,11 +4,13 @@ filetype off     " required
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 Plug 'SirVer/ultisnips'
+Plug 'Shougo/deoplete.nvim'
 Plug 'neomake/neomake'
 Plug 'vim-airline/vim-airline'
 Plug 'godlygeek/tabular'
 Plug 'sheerun/vim-polyglot'
 Plug 'Raimondi/delimitMate'
+Plug 'JuliaEditorSupport/julia-vim'
 Plug 'lervag/vimtex'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -22,44 +24,11 @@ call plug#end()
 
 filetype plugin indent on
 
-" Neomake settings
-autocmd! BufWritePost *.cpp,*.hpp,*.h Neomake
-let g:neomake_cpp_enabled_makers = ['gcc']
-let g:neomake_cpp_gcc_maker = {
-            \ 'exe': 'g++',
-            \ 'args': ['-Wall', '-Wextra', '-Wpedantic', '-Wno-sign-conversion', '-std=c++11'],
-            \ }
-
-" vim-airline settings
-set laststatus=2
-let g:airline_powerline_fonts = 1
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-
-" Ultisnips settings
-let g:UltiSnipsUsePythonVersion = 3
-let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
-let g:UltiSnipsSnippetDirectories=["UltiSnips"]
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsEditSplit="vertical"
-
 syntax on
 colorscheme default
 autocmd filetype tex colorscheme industry
 
-"History/Undo settings
+" History/Undo settings
 set history=1000
 set undofile
 set undodir=~/.vim/undo
@@ -75,7 +44,7 @@ set wildmenu
 set wildignorecase
 set wildignore+=*.aux,*.out,*.toc,*.pdf
 set wildignore+=*.dSYM/,*.png,*.jpeg,*.ind
-set wildignore+=*.idx,*.log,*.idx,*.ilg,*.fls
+set wildignore+=*.idx,*.idn,*.ilg,*.fls
 
 set number
 set relativenumber
@@ -119,12 +88,14 @@ nnoremap j gj
 nnoremap k gk
 noremap <silent> <Space> :silent noh<Bar>echo<CR>
 nnoremap <CR> o<Esc>
+nnoremap <leader><leader> :wa<CR>
 autocmd filetype cpp inoremap {<CR> {<CR>}<Esc>O
 autocmd filetype cpp let @d='ywostd::cout << "jkpa= jkA << jkpjkA<< std::endl;jkk^'
 autocmd filetype cpp let @p='ywoprintf("jkpa = %i\n", jkpa);jkk^'
-autocmd filetype cpp nnoremap <leader>m :wa<CR> :!clear;make run<CR>
+autocmd filetype julia let @p='ywoprintln("jkpa = $jkpa")jkk^'
 autocmd filetype py let @d='ywoprint ("jkpa= "jkA,jkpjkA)jkk0'
-autocmd filetype tex let @v='i\vek{jkwea}jk'
+autocmd filetype cpp nnoremap <leader>m :wa<CR> :!make run<CR>
+autocmd filetype julia nnoremap <leader>m :wa<CR> :!nice julia % <CR>
 
 
 "Vertical split
@@ -161,4 +132,41 @@ vnoremap // y/<C-R>"<CR>
 nnoremap Q !!sh<CR>
 
 " Change working directory to this
-cmap ctwd :cd %:p:h<CR>
+nnoremap <leader>cd :cd %:p:h<CR>
+cmap :Q :q
+
+let g:deoplete#enable_at_startup = 1
+
+autocmd FileType julia,gnuplot setlocal commentstring=#\ %s
+
+" Neomake settings
+autocmd! BufWritePost *.cpp,*.hpp,*.h Neomake
+let g:neomake_cpp_enabled_makers = ['gcc']
+let g:neomake_cpp_gcc_maker = {
+            \ 'exe': 'g++',
+            \ 'args': ['-Wall', '-Wextra', '-Wpedantic', '-Wno-sign-conversion', '-std=c++11'],
+            \ }
+
+" vim-airline settings
+set laststatus=2
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
+" Ultisnips settings
+let g:UltiSnipsUsePythonVersion = 3
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
