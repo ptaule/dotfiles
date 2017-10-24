@@ -6,7 +6,7 @@ extends c
 priority -49
 
 snippet inc< "include"
-#include<${1:iostream}>
+#include <${1:iostream}>
 endsnippet
 
 snippet inc"
@@ -27,18 +27,6 @@ endsnippet
 
 snippet sca "static cast"
 static_cast<${1:unsigned}>(${2:expr})${3}
-endsnippet
-
-snippet for "for loop (for)"
-for (${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
-	${VISUAL}$0
-}
-endsnippet
-
-snippet fori "for int loop (fori)"
-for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
-	${VISUAL}$0
-}
 endsnippet
 
 # foreach

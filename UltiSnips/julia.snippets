@@ -1,0 +1,58 @@
+# Documentation
+
+snippet header "legger inn kommentarer øverst i .cpp-filen" b
+#
+#   `!p res = fn`
+#
+#   Created by Petter Taule on `date +%d.%m.%Y`
+#   Copyright (c) `date +%Y` Petter Taule. All rights reserved.
+#
+
+$1
+endsnippet
+
+snippet for "for loop (for)"
+for $1
+	${VISUAL}$0
+end
+endsnippet
+
+snippet fori "for int loop (fori)"
+for ${1:i}=${2:1}:${3}
+	${VISUAL}$0
+end
+endsnippet
+
+snippet docf "function documentation" b
+#' @description
+#'
+#' ${1:function description}
+#'
+#' ${2:@param ${3:name}::${4:Type} ${5:Description}}
+#'
+#' ${6:@returns ${7:name}::${8:Type} ${9:Description}}
+#'
+#' @examples
+#'
+#' ${10: function call examples}
+endsnippet
+
+snippet doct "type definition" b
+#' @description
+#'
+#' ${1:type description}
+#'
+#' ${2:@field ${3:name}::${4:Type} ${5:Description}}
+#'
+#' @examples
+#'
+#' ${10: constructor examples}
+endsnippet
+
+snippet par "function parameter documentation" b
+#' @param ${1:name}::${2:Type} ${0:Description}
+endsnippet
+
+snippet fld "type field documentation" b
+#' @field ${1:name}::${2:Type} ${0:Description}
+endsnippet
