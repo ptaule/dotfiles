@@ -84,19 +84,22 @@ let g:tex_flavor = "latex"
 
 "Escape
 inoremap jk <Esc>
-nnoremap j gj
-nnoremap k gk
 noremap <silent> <Space> :silent noh<Bar>echo<CR>
 nnoremap <CR> o<Esc>
 nnoremap <leader><leader> :wa<CR>
-autocmd filetype cpp inoremap {<CR> {<CR>}<Esc>O
-autocmd filetype cpp let @d='ywostd::cout << "jkpa= jkA << jkpjkA<< std::endl;jkk^'
-autocmd filetype cpp let @p='ywoprintf("jkpa = %i\n", jkpa);jkk^'
-autocmd filetype julia let @p='ywoprintln("jkpa = $jkpa")jkk^'
-autocmd filetype py let @d='ywoprint ("jkpa= "jkA,jkpjkA)jkk0'
-autocmd filetype cpp nnoremap <leader>m :wa<CR> :!make run<CR>
-autocmd filetype julia nnoremap <leader>m :wa<CR> :!nice julia % <CR>
 
+autocmd filetype tex nnoremap j gj
+autocmd filetype tex nnoremap k gk
+
+autocmd filetype cpp inoremap {<CR> {<CR>}<Esc>O
+autocmd filetype cpp   let @d='ywostd::cout << "jkpa= jkA << jkpjkA<< std::endl;jkk^'
+autocmd filetype cpp   let @p='ywoprintf("jkpa = %i\n", jkpa);jkk^'
+autocmd filetype julia let @p='ywoprintln("jkpa = $jkpa")jkk^'
+autocmd filetype py    let @d='ywoprint ("jkpa= "jkA,jkpjkA)jkk0'
+autocmd filetype cpp   nnoremap <leader>m :wa<CR> :!make run<CR>
+autocmd filetype julia nnoremap <leader>m :wa<CR> :!nice julia % <CR>
+autocmd filetype sh    nnoremap <leader>m :wa<CR> :!./% <CR>
+autocmd filetype form  nnoremap <leader>m :wa<CR> :!form -q -l % <CR>
 
 "Vertical split
 nnoremap <leader>w <C-w>v<C-w>l
@@ -109,9 +112,9 @@ nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
 
 " Copy to clipboard
-nnoremap  <leader>y  "+y
-nnoremap  <leader>yy  "+yy
-vnoremap  <leader>y  "+y
+nnoremap <leader>y  "+y
+nnoremap <leader>yy  "+yy
+vnoremap <leader>y  "+y
 
 " Paste from clipboard
 nnoremap <leader>p "+p
@@ -138,13 +141,19 @@ cmap :Q :q
 let g:deoplete#enable_at_startup = 1
 
 autocmd FileType julia,gnuplot setlocal commentstring=#\ %s
+autocmd FileType form setlocal commentstring=*\ %s
 
 " Neomake settings
 autocmd! BufWritePost *.cpp,*.hpp,*.h Neomake
 let g:neomake_cpp_enabled_makers = ['gcc']
 let g:neomake_cpp_gcc_maker = {
             \ 'exe': 'g++',
-            \ 'args': ['-Wall', '-Wextra', '-Wpedantic', '-Wno-sign-conversion', '-std=c++11'],
+            \ 'args': ['-wall',
+            \          '-wextra',
+            \          '-wpedantic',
+            \          '-wno-sign-conversion',
+            \          '-fsyntax-only',
+            \          '-std=c++11'],
             \ }
 
 " vim-airline settings
