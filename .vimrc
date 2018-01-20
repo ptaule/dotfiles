@@ -12,6 +12,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'Raimondi/delimitMate'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'lervag/vimtex'
+Plug 'beloglazov/vim-online-thesaurus'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -23,10 +24,10 @@ Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
 
 filetype plugin indent on
-
 syntax on
+
 colorscheme default
-autocmd filetype tex colorscheme industry
+autocmd filetype tex colorscheme torte
 
 " History/Undo settings
 set history=1000
@@ -42,9 +43,10 @@ set hidden
 
 set wildmenu
 set wildignorecase
-set wildignore+=*.aux,*.out,*.toc,*.pdf
-set wildignore+=*.dSYM/,*.png,*.jpeg,*.ind
-set wildignore+=*.idx,*.idn,*.ilg,*.fls
+set wildignore+=*.acn,*.acr,*.alg,*.aux,*.auxlock,*.bbl,
+set wildignore+=*.bcf,*.blg,*.fdb_latexmk,*.fls*.glo,
+set wildignore+=*.idn,*.idx,*.ilg,*.nlo,*.nls*.out,*.toc,
+set wildignore+=*.pdf,*.png,*.jpeg
 
 set number
 set relativenumber
@@ -54,7 +56,6 @@ set smartcase
 set hlsearch
 set incsearch
 set gdefault
-set path+=**
 
 set tabstop=4
 set shiftwidth=4
@@ -111,6 +112,9 @@ nnoremap <leader>j <C-w>j
 nnoremap <leader>k <C-w>k
 nnoremap <leader>l <C-w>l
 
+" Copy to end of line
+nnoremap Y y$
+
 " Copy to clipboard
 nnoremap <leader>y  "+y
 nnoremap <leader>yy  "+yy
@@ -140,6 +144,8 @@ cmap :Q :q
 
 let g:deoplete#enable_at_startup = 1
 
+autocmd FileType tex let b:delimitMate_quotes = "\" ' $"
+
 autocmd FileType julia,gnuplot setlocal commentstring=#\ %s
 autocmd FileType form setlocal commentstring=*\ %s
 
@@ -148,10 +154,10 @@ autocmd! BufWritePost *.cpp,*.hpp,*.h Neomake
 let g:neomake_cpp_enabled_makers = ['gcc']
 let g:neomake_cpp_gcc_maker = {
             \ 'exe': 'g++',
-            \ 'args': ['-wall',
-            \          '-wextra',
-            \          '-wpedantic',
-            \          '-wno-sign-conversion',
+            \ 'args': ['-Wall',
+            \          '-Wextra',
+            \          '-Wpedantic',
+            \          '-Wno-sign-conversion',
             \          '-fsyntax-only',
             \          '-std=c++11'],
             \ }
