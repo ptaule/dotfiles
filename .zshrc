@@ -12,6 +12,17 @@ fi
 
 # Customize to your needs...
 
+# Start xserver
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+    startx
+fi
+
+export EDITOR='nvim'
+export SUDO_EDITOR='nvim'
+export VISUAL='nvim'
+export PAGER='less'
+export READER='zathura'
+
 alias cd..='cd ..'
 alias vim='nvim'
 
