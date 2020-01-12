@@ -1,0 +1,6 @@
+keycode  13 = 4 dollar 4 dollar currency onequarter dollar
+keycode  21 = backslash dead_acute dead_grave acute dead_grave dead_ogonek acute
+keycode  35 = asciitilde asciicircum diaeresis asciicircum dead_diaeresis dead_macron asciitilde
+keycode  34 = aring Aring aring Aring adiaeresis Adiaeresis adiaeresis
+keycode  47 = oslash Oslash oslash Oslash odiaeresis Odiaeresis odiaeresis
+keycode  48 = ae AE ae AE udiaeresis Udiaeresis udiaeresis
