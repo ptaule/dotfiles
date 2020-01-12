@@ -4,15 +4,15 @@ filetype off     " required
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 Plug 'SirVer/ultisnips'
-Plug 'Shougo/deoplete.nvim'
-Plug 'neomake/neomake'
-Plug 'vim-airline/vim-airline'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'itchyny/lightline.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ryanoasis/vim-devicons'
 Plug 'godlygeek/tabular'
 Plug 'sheerun/vim-polyglot'
 Plug 'Raimondi/delimitMate'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'lervag/vimtex'
-Plug 'beloglazov/vim-online-thesaurus'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -20,13 +20,18 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'ntpeters/vim-better-whitespace'
 
+" Plug 'beloglazov/vim-online-thesaurus'
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'neomake/neomake'
+" Plug 'vim-airline/vim-airline'
+
 " Initialize plugin system
 call plug#end()
 
 filetype plugin indent on
 syntax on
 
-colorscheme default
+autocmd filetype c,h,cpp,hpp colorscheme torte
 autocmd filetype tex colorscheme torte
 
 " History/Undo settings
@@ -43,10 +48,12 @@ set hidden
 
 set wildmenu
 set wildignorecase
-set wildignore+=*.acn,*.acr,*.alg,*.aux,*.auxlock,*.bbl,
+set wildignore+=*.acn,*.acr,*.alg,*.aux,*.auxlock,*.bbl
 set wildignore+=*.bcf,*.blg,*.fdb_latexmk,*.fls*.glo,
-set wildignore+=*.idn,*.idx,*.ilg,*.nlo,*.nls*.out,*.toc,
+set wildignore+=*.idn,*.idx,*.ilg,*.nlo,*.nls,*.out,*.toc
 set wildignore+=*.pdf,*.png,*.jpeg
+set wildignore+=*.o,*.prog,*.exe
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 set number
 set relativenumber
@@ -67,7 +74,9 @@ set nrformats-=octal
 
 " set clipboard=unnamed
 set shortmess=a
-set cmdheight=1
+set cmdheight=2
+
+set updatetime=4000
 
 " Typos
 ab heigth height
@@ -101,6 +110,8 @@ autocmd filetype cpp   nnoremap <leader>m :wa<CR> :!make run<CR>
 autocmd filetype julia nnoremap <leader>m :wa<CR> :!nice julia % <CR>
 autocmd filetype sh    nnoremap <leader>m :wa<CR> :!./% <CR>
 autocmd filetype form  nnoremap <leader>m :wa<CR> :!form -q -l % <CR>
+
+autocmd filetype dat :set nostartofline
 
 "Vertical split
 nnoremap <leader>w <C-w>v<C-w>l
@@ -142,41 +153,54 @@ nnoremap Q !!sh<CR>
 nnoremap <leader>cd :cd %:p:h<CR>
 cmap :Q :q
 
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
-autocmd FileType tex let b:delimitMate_quotes = "\" ' $"
+" autocmd FileType tex let b:delimitMate_quotes = "\" ' $"
 
-autocmd FileType julia,gnuplot setlocal commentstring=#\ %s
+autocmd FileType julia,gnuplot,dat,dosini setlocal commentstring=#\ %s
 autocmd FileType form setlocal commentstring=*\ %s
 
-" Neomake settings
-autocmd! BufWritePost *.cpp,*.hpp,*.h Neomake
-let g:neomake_cpp_enabled_makers = ['gcc']
-let g:neomake_cpp_gcc_maker = {
-            \ 'exe': 'g++',
-            \ 'args': ['-Wall',
-            \          '-Wextra',
-            \          '-Wpedantic',
-            \          '-Wno-sign-conversion',
-            \          '-fsyntax-only',
-            \          '-std=c++11'],
-            \ }
+" Syntax for .dat files
+autocmd BufRead,BufNewFile *.dat set filetype=dat
 
-" vim-airline settings
+nnoremap <leader>e :CtrlP<CR>
+
+" lightline settings
 set laststatus=2
-let g:airline_powerline_fonts = 1
+set noshowmode
+let g:lightline = {
+  \   'active': {
+  \     'left':[ [ 'mode', 'paste' ],
+  \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+  \     ]
+  \   },
+	\   'component': {
+	\     'lineinfo': ' %3l:%-2v',
+	\   },
+  \   'component_function': {
+  \     'gitbranch': 'fugitive#head',
+  \   }
+  \ }
+let g:lightline.separator = {
+	\   'left': '', 'right': ''
+  \}
+let g:lightline.subseparator = {
+	\   'left': '', 'right': ''
+  \}
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 
 " Ultisnips settings
 let g:UltiSnipsUsePythonVersion = 3
