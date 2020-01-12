@@ -1,6 +1,6 @@
 [user]
-    name = Petter Taule
-    email = pettertaule@live.no
+	name = Petter Taule
+	email = pettertaule@live.no
 [alias]
     s = status
     d = diff
@@ -10,10 +10,13 @@
     unstage = reset HEAD --
     last = log -1 HEAD
     hist = log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short
+    h = log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short
 [core]
-    editor = vim
+    editor = nvim
     whitespace = trailing-space,space-before-tab
 [apply]
     whitespace = fix
 [diff]
     renames = copies
+[rebase]
+    autosquash = true
