@@ -27,6 +27,15 @@ primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 
+lime = #32cd32
+darkgreen = #006400
+blue = #0000ff
+navyblue = #000080
+red = #ff0000
+darkred = #8b0000
+gold = #ffd700
+
+
 [bar/top]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
@@ -52,13 +61,13 @@ padding-right = 0
 module-margin-left = 0
 module-margin-right = 1
 
-font-0 = Ubuntu Mono derivative Powerline:pixelsize=9;1
-font-1 = FontAwesome:pixelsize=8;3
-font-2 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-0 = Ubuntu Mono Nerd Font:pixelsize=9;1
+# font-1 = FontAwesome:pixelsize=8;3
+# font-2 = unifont:fontformat=truetype:size=8:antialias=false;0
 
 modules-left = i3 xwindow
 ; modules-center = xwindow
-modules-right = backlight-acpi pulseaudio xkeyboard memory cpu battery temperature date powermenu
+modules-right = pulseaudio filesystem xkeyboard backlight-acpi memory cpu temperature battery date
 
 tray-position = right
 tray-padding = 1
@@ -100,7 +109,7 @@ label-indicator-underline = ${colors.secondary}
 
 [module/filesystem]
 type = internal/fs
-interval = 25
+interval = 60
 
 mount-0 = /
 mount-1 = /home
@@ -108,6 +117,8 @@ mount-1 = /home
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
+
+label-background = ${colors.background}
 
 [module/bspwm]
 type = internal/bspwm
@@ -185,20 +196,22 @@ label-song-ellipsis = true
 [module/xbacklight]
 type = internal/xbacklight
 
-format = <label> <bar>
-; format_prefix = " "
+# format = <label> <bar>
+# format = <label>
+format-prefix = "ﯧ "
+format-underline = #4bffdc
 label = %percentage%%
 
-bar-width = 10
-bar-indicator = |
-bar-indicator-foreground = #fff
-bar-indicator-font = 2
-bar-fill = ─
-bar-fill-font = 2
-bar-fill-foreground = #9f78e1
-bar-empty = ─
-bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
+# bar-width = 10
+# bar-indicator = |
+# bar-indicator-foreground = #fff
+# bar-indicator-font = 2
+# bar-fill = ─
+# bar-fill-font = 2
+# bar-fill-foreground = #9f78e1
+# bar-empty = ─
+# bar-empty-font = 2
+# bar-empty-foreground = ${colors.foreground-alt}
 
 [module/backlight-acpi]
 inherit = module/xbacklight
@@ -284,7 +297,7 @@ format-volume = <label-volume> <bar-volume>
 label-volume = VOL %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted =  muted
+label-muted = " "
 label-muted-foreground = #666
 
 bar-volume-width = 10
@@ -338,29 +351,30 @@ battery = BAT0
 adapter = ADP1
 full-at = 98
 
-warn-battery = 5
+time-format = %H:%M
+poll-interval = 30
 
 ; format-charging = <animation-charging> <label-charging>
 format-charging-prefix = " "
 format-charging = <label-charging>
-format-charging-underline = #ffb52a
+format-charging-underline = ${colors.lime}
 
 format-discharging = <ramp-capacity> <label-discharging>
 ; format-discharging-prefix = " "
-format-discharging-underline = ${self.format-charging-underline}
+format-discharging-underline = ${colors.red}
+label-discharging = %%percentage% (%time%)
 
 format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground}
 format-full-underline = ${self.format-charging-underline}
 
-format-warn-prefix = " "
-format-warn = <label-charging>
-format-warn-foreground = ${colors.secondary}
-
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 ramp-capacity-foreground = ${colors.foreground}
+
 
 ; animation-charging-0 = 
 ; animation-charging-1 = 
