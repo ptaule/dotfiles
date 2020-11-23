@@ -1,0 +1,3 @@
+- mtrack touchpad: add user to input group
+- light: add user to input group
+- audio: add user to audio group
