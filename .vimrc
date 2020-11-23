@@ -1,6 +1,9 @@
 set nocompatible " be iMproved, required
 filetype off     " required
 
+let g:polyglot_disabled = ['latex']
+let g:polyglot_disabled = ['autoindent']
+
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 Plug 'SirVer/ultisnips'
@@ -10,6 +13,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'godlygeek/tabular'
 Plug 'sheerun/vim-polyglot'
+" Plug 'arcticicestudio/nord-vim'
 Plug 'Raimondi/delimitMate'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'lervag/vimtex'
@@ -19,6 +23,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'unblevable/quick-scope'
+" Plug 'junegunn/vim-peekaboo'
 
 " Plug 'beloglazov/vim-online-thesaurus'
 " Plug 'Shougo/deoplete.nvim'
@@ -33,6 +39,7 @@ syntax on
 
 autocmd filetype c,h,cpp,hpp colorscheme torte
 autocmd filetype tex colorscheme torte
+autocmd filetype python colorscheme default
 
 " History/Undo settings
 set history=1000
@@ -65,7 +72,7 @@ set incsearch
 set gdefault
 
 set tabstop=4
-set shiftwidth=4
+set shiftwidth=0
 set expandtab
 set smarttab
 set backspace=indent,eol,start
@@ -74,9 +81,9 @@ set nrformats-=octal
 
 " set clipboard=unnamed
 set shortmess=a
-set cmdheight=2
+set cmdheight=1
 
-set updatetime=4000
+set updatetime=300
 
 " Typos
 ab heigth height
@@ -102,14 +109,17 @@ autocmd filetype tex nnoremap j gj
 autocmd filetype tex nnoremap k gk
 
 autocmd filetype cpp inoremap {<CR> {<CR>}<Esc>O
+autocmd filetype c     let @p='ywoprintf("jkpa = %i\n", jkpa);jkk^'
 autocmd filetype cpp   let @d='ywostd::cout << "jkpa= jkA << jkpjkA<< std::endl;jkk^'
 autocmd filetype cpp   let @p='ywoprintf("jkpa = %i\n", jkpa);jkk^'
 autocmd filetype julia let @p='ywoprintln("jkpa = $jkpa")jkk^'
 autocmd filetype py    let @d='ywoprint ("jkpa= "jkA,jkpjkA)jkk0'
-autocmd filetype cpp   nnoremap <leader>m :wa<CR> :!make run<CR>
-autocmd filetype julia nnoremap <leader>m :wa<CR> :!nice julia % <CR>
-autocmd filetype sh    nnoremap <leader>m :wa<CR> :!./% <CR>
-autocmd filetype form  nnoremap <leader>m :wa<CR> :!form -q -l % <CR>
+autocmd filetype cpp    nnoremap <leader>m :wa<CR> :!make -j run<CR>
+autocmd filetype julia  nnoremap <leader>m :wa<CR> :!nice julia % <CR>
+autocmd filetype python nnoremap <leader>m :wa<CR> :!nice python % <CR>
+autocmd filetype sh     nnoremap <leader>m :wa<CR> :!./% <CR>
+autocmd filetype form   nnoremap <leader>m :wa<CR> :!form -q -l % <CR>
+autocmd filetype dosini nnoremap <leader>m :wa<CR> :!./class % <CR>
 
 autocmd filetype dat :set nostartofline
 
@@ -159,11 +169,14 @@ cmap :Q :q
 
 autocmd FileType julia,gnuplot,dat,dosini setlocal commentstring=#\ %s
 autocmd FileType form setlocal commentstring=*\ %s
+autocmd FileType mma setlocal commentstring=(*\ %s\ *)
 
 " Syntax for .dat files
 autocmd BufRead,BufNewFile *.dat set filetype=dat
 
 nnoremap <leader>e :CtrlP<CR>
+
+nnoremap <leader>x *``cgn
 
 " lightline settings
 set laststatus=2
@@ -189,7 +202,7 @@ let g:lightline.subseparator = {
   \}
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -201,6 +214,12 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 " Ultisnips settings
 let g:UltiSnipsUsePythonVersion = 3
