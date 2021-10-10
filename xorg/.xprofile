@@ -1,0 +1,25 @@
+export TERMINAL="alacritty"
+export EDITOR="lvim"
+export SUDO_EDITOR="lvim"
+export VISUAL="lvim"
+export PAGER="less"
+export READER="zathura"
+export BROWSER="brave"
+
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+
+export ZDOTDIR=$HOME/.config/zsh
+
+# Speedy keys
+xset r rate 240 40
+
+$HOME/.fehbg &
+dunst &
+nm-applet &
+dropbox start &
+xss-lock betterlockscreen -l &
+xfce4-power-manager &
+# lrz-syncshare &
+# redshift-gtk &
